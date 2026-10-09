@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net-Cloud Telecom | Fiber & Wireless Internet in Kohat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Grid pattern background */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Card hover effects with zoom */
+        .why-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .why-card:hover {
+            border-color: rgba(185, 28, 28, 0.45);
+            background: linear-gradient(180deg, #FFFFFF 0%, #FFF5F5 100%);
+            box-shadow: 0 16px 35px -8px rgba(153, 27, 27, 0.15), 0 6px 15px -2px rgba(185, 28, 28, 0.1);
+            transform: translateY(-6px) scale(1.02);
+        }
+        .why-card:hover .icon-box {
+            background-color: #FEF2F2;
+            border-color: #FECDD3;
+            color: #B91C1C;
+            transform: scale(1.1);
+        }
+        .why-card:hover .card-title {
+            color: #881337;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden selection:bg-red-600 selection:text-white">
+
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+            <a href="#" class="flex items-center space-x-2 sm:space-x-3 group transition-transform hover:scale-105 duration-200 min-w-0">
+                <div class="relative h-9 sm:h-12 flex-shrink-0">
+                    <!-- Net-Cloud logo mark: red swirl ring with splash and droplets -->
+                    <svg viewBox="0 0 760 640" class="h-full w-auto drop-shadow-sm" role="img" aria-label="Net-Cloud logo">
+                        <defs>
+                            <linearGradient id="ncGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0" stop-color="#9F0000"/>
+                                <stop offset="0.55" stop-color="#C80000"/>
+                                <stop offset="1" stop-color="#EE0000"/>
+                            </linearGradient>
+                            <clipPath id="ncClip">
+                                <ellipse cx="290" cy="332" rx="290" ry="296"/>
+                            </clipPath>
+                        </defs>
+
+                        <!-- Main round body -->
+                        <ellipse cx="290" cy="332" rx="290" ry="296" fill="url(#ncGrad)"/>
+
+                        <!-- Splash flowing up and to the right -->
+                        <path d="M80,150 C140,75 230,45 330,28 C380,20 405,14 418,12 C445,-2 465,25 447,50 C440,70 462,72 490,60 C540,40 600,15 640,25 C655,35 605,70 585,92 C575,115 600,120 620,112 L705,64 C730,55 756,68 750,88 C740,112 690,135 655,148 C625,162 600,175 586,190 C570,215 580,240 596,258 C616,286 604,302 575,318 L300,330 Z" fill="url(#ncGrad)"/>
+
+                        <!-- Dark maroon shading bands -->
+                        <g clip-path="url(#ncClip)">
+                            <path d="M78,152 C150,135 230,128 320,112 C380,98 430,82 462,68 L470,40 L100,60 Z" fill="#7A0000"/>
+                            <path d="M330,200 L465,172 C430,192 390,205 350,214 Z" fill="#6A0000"/>
+                            <path d="M165,400 C180,470 205,520 245,600 L300,640 L420,640 C440,610 400,560 420,525 L485,455 L580,372 L575,325 C535,350 500,385 470,415 C420,462 380,490 300,495 C240,495 190,470 165,400 Z" fill="#720000"/>
+                            <path d="M485,398 C520,372 548,350 578,340 L580,372 L485,455 Z" fill="#450000"/>
+                            <path d="M405,605 C400,560 410,540 425,525 L485,455 L580,372 C575,500 500,570 405,605 Z" fill="#A80000"/>
+                        </g>
+
+                        <!-- White centre ring -->
+                        <circle cx="300" cy="348" r="146" fill="#FFFFFF"/>
+
+                        <!-- Red tongue reaching into the ring -->
+                        <path d="M160,322 C185,318 212,308 230,325 C240,345 228,368 204,384 L170,402 C150,372 158,342 160,322 Z" fill="#E00000"/>
+
+                        <!-- Droplets -->
+                        <circle cx="498" cy="18" r="19" fill="#D40000"/>
+                        <circle cx="688" cy="18" r="19" fill="#C20000"/>
+                        <circle cx="650" cy="230" r="14" fill="#D00000"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg sm:text-2xl font-black tracking-tight text-slate-900 leading-none">Net-Cloud</span>
+                    <div class="flex items-center space-x-1 mt-1 text-[10px] text-slate-500 font-bold tracking-wider">
+                        <i data-lucide="tv" class="w-3 h-3 text-red-600"></i>
+                        <span class="text-red-600 font-extrabold">|</span>
+                        <i data-lucide="phone" class="w-3 h-3 text-slate-700"></i>
+                        <span class="text-red-600 font-extrabold">|</span>
+                        <i data-lucide="wifi" class="w-3 h-3 text-red-600"></i>
+                    </div>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider text-slate-600">
+                <a href="#about" class="hover:text-red-600 hover:scale-110 transition-all">Why Choose Us</a>
+                <a href="#packages" class="hover:text-red-600 hover:scale-110 transition-all">Kohat Packages</a>
+                <a href="#coverage" class="hover:text-red-600 hover:scale-110 transition-all">Coverage Areas</a>
+                <a href="#payment" class="hover:text-red-600 hover:scale-110 transition-all">Bill Payment</a>
+            </div>
+
+            <div class="flex-shrink-0">
+                <a href="#signup" class="inline-block whitespace-nowrap bg-red-600 hover:bg-red-700 text-white font-bold text-[11px] sm:text-xs uppercase tracking-wide sm:tracking-wider px-3.5 py-2.5 sm:px-6 sm:py-3 rounded-lg shadow-md shadow-red-600/20 transition-all transform hover:scale-105">
+                    Get connection
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Deep Crimson Hero Banner -->
+    <section class="relative bg-gradient-to-br from-red-950 via-red-900 to-slate-950 text-white overflow-hidden py-16 lg:py-24 border-b border-red-900">
+        <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-900/60 border border-red-700/50 text-red-200 text-[10px] sm:text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="uppercase tracking-wide sm:tracking-wider">Network status: stable across Kohat</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                        Fiber to the Home & Wireless Connectivity
+                    </h1>
+
+                    <p class="text-red-100 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+                        Connecting You to the World. Reliable broadband for homes, businesses, and institutions, supported by a local team that's always just a call away.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#signup" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-sm transition-all transform hover:scale-105 shadow-xl shadow-red-600/30 text-center">
+                            Sign up online &rarr;
+                        </a>
+                        <a href="#coverage" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-red-950/80 hover:bg-red-900 text-white font-semibold text-sm transition-all transform hover:scale-105 border border-red-700/50 text-center">
+                            Check availability
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Network Graphic Card with Zoom Hover -->
+                <div class="lg:col-span-5 relative group">
+                    <div class="bg-red-950/90 border border-red-800/80 rounded-2xl p-6 shadow-2xl relative transition-transform duration-300 group-hover:scale-[1.03]">
+                        <div class="flex justify-between items-center border-b border-red-900/80 pb-3 mb-4">
+                            <span class="text-xs font-bold text-red-200 tracking-wider uppercase">NETWORK OVERVIEW</span>
+                            <span class="inline-flex items-center text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded-full font-bold">● LIVE</span>
+                        </div>
+
+                        <!-- Organic Floating Network Topology SVG -->
+                        <div class="h-44 w-full relative flex items-center justify-center my-2">
+                            <svg id="net-svg" class="w-full h-full overflow-visible" viewBox="0 0 320 150">
+                                <g id="net-lines" stroke="#7F1D1D" stroke-width="1.5">
+                                    <line id="l1" x1="40" y1="110" x2="90" y2="75" />
+                                    <line id="l2" x1="90" y1="75" x2="140" y2="110" />
+                                    <line id="l3" x1="90" y1="75" x2="160" y2="45" stroke="#EF4444" stroke-width="2" opacity="0.8" />
+                                    <line id="l4" x1="160" y1="45" x2="210" y2="85" stroke="#EF4444" stroke-width="2" opacity="0.8" />
+                                    <line id="l5" x1="140" y1="110" x2="210" y2="85" />
+                                    <line id="l6" x1="210" y1="85" x2="270" y2="40" stroke="#EF4444" stroke-width="2" />
+                                    <line id="l7" x1="270" y1="40" x2="290" y2="105" />
+                                    <line id="l8" x1="210" y1="85" x2="290" y2="105" stroke="#EF4444" stroke-dasharray="3" />
+                                </g>
+
+                                <g id="net-nodes">
+                                    <circle id="n1" cx="40" cy="110" r="4.5" fill="#991B1B" />
+                                    <circle id="n2" cx="90" cy="75" r="6" fill="#EF4444" />
+                                    <circle id="n3" cx="140" cy="110" r="4.5" fill="#991B1B" />
+                                    <circle id="n4" cx="160" cy="45" r="8" fill="#FFFFFF" stroke="#DC2626" stroke-width="2" />
+                                    <circle id="n5" cx="210" cy="85" r="7" fill="#EF4444" />
+                                    <circle id="n6" cx="270" cy="40" r="5" fill="#FFFFFF" />
+                                    <circle id="n7" cx="290" cy="105" r="5.5" fill="#EF4444" />
+                                </g>
+
+                                <g id="net-packets"></g>
+                            </svg>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2 border-t border-red-900/80 pt-4 text-center">
+                            <div>
+                                <div class="text-lg font-bold text-white">FTTH</div>
+                                <div class="text-[10px] text-red-300">Fiber backbone</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-white">99.9%</div>
+                                <div class="text-[10px] text-red-300">Uptime target</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-white">24/7</div>
+                                <div class="text-[10px] text-red-300">Local support</div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Speed Badge with Zoom -->
+                        <div class="absolute -bottom-4 right-2 sm:-right-4 bg-white text-slate-900 px-4 py-2 rounded-xl shadow-xl border border-slate-100 flex items-center space-x-2 transition-transform hover:scale-110">
+                            <div class="w-3 h-3 rounded-full bg-red-600 animate-ping"></div>
+                            <span class="text-xs font-extrabold text-slate-900 uppercase">Up to 100 Mbps</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <div class="flex items-center justify-center space-x-3 text-red-600 text-xs font-bold uppercase tracking-widest">
+                    <span class="w-8 h-0.5 bg-red-600"></span>
+                    <span>WHY CHOOSE US</span>
+                    <span class="w-8 h-0.5 bg-red-600"></span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    This is why we're your reliable link to the world
+                </h2>
+                <p class="text-slate-500 text-sm sm:text-base leading-relaxed">
+                    Whichever line reaches your street, it's backed by the same network team and the same standard of service.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="why-card bg-white p-8 rounded-2xl border border-slate-200/80 flex flex-col justify-between cursor-pointer">
+                    <div class="space-y-4">
+                        <div class="icon-box w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center transition-all border border-transparent">
+                            <i data-lucide="wifi" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="card-title text-lg font-bold text-slate-900 transition-colors">Real local support</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Support engineers who answer the phone and know your street — not a script.</p>
+                    </div>
+                </div>
+
+                <div class="why-card bg-white p-8 rounded-2xl border border-slate-200/80 flex flex-col justify-between cursor-pointer">
+                    <div class="space-y-4">
+                        <div class="icon-box w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center transition-all border border-transparent">
+                            <i data-lucide="split" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="card-title text-lg font-bold text-slate-900 transition-colors">Fiber-first network</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Fiber (FTTH) for symmetric speeds, plus wireless links reaching areas fiber hasn't hit yet.</p>
+                    </div>
+                </div>
+
+                <div class="why-card bg-white p-8 rounded-2xl border border-slate-200/80 flex flex-col justify-between cursor-pointer">
+                    <div class="space-y-4">
+                        <div class="icon-box w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center transition-all border border-transparent">
+                            <i data-lucide="shield" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="card-title text-lg font-bold text-slate-900 transition-colors">Stability guaranteed</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Redundant links and proactive monitoring keep you online when it matters.</p>
+                    </div>
+                </div>
+
+                <div class="why-card bg-white p-8 rounded-2xl border border-slate-200/80 flex flex-col justify-between cursor-pointer">
+                    <div class="space-y-4">
+                        <div class="icon-box w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center transition-all border border-transparent">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="card-title text-lg font-bold text-slate-900 transition-colors">Unbeatable speeds</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Stream, game, and work from home without buffering, at prices built for Pakistan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kohat Internet Packages Section -->
+    <section id="packages" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-red-600 font-bold text-xs uppercase tracking-widest">Kohat Region Tariffs</span>
+                <h2 class="text-3xl font-extrabold text-slate-900">Unlimited Fiber & Wireless Packages</h2>
+                <p class="text-slate-500 text-sm">Select the bandwidth rate that fits your home or commercial requirements.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between transition-transform duration-300 hover:scale-105 hover:shadow-xl hover:border-red-300">
+                    <div class="space-y-4">
+                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Starter</span>
+                        <div class="text-3xl font-black text-slate-900">4 <span class="text-sm font-normal text-slate-500">Mbps</span></div>
+                        <div class="text-xl font-extrabold text-red-600">Rs 1,800<span class="text-xs font-normal text-slate-500">/mo</span></div>
+                        <ul class="text-xs text-slate-600 space-y-2.5 pt-4 border-t border-slate-200">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Unlimited downloads</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> True FTTH / Wireless</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> 2-3 Devices</li>
+                        </ul>
+                    </div>
+                    <a href="#signup" onclick="setPackage('4 Mbps - Rs 1,800/mo')" class="mt-8 w-full block text-center py-2.5 rounded-lg bg-slate-900 hover:bg-red-600 text-white font-bold text-xs transition-all">Choose Plan</a>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between transition-transform duration-300 hover:scale-105 hover:shadow-xl hover:border-red-300">
+                    <div class="space-y-4">
+                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Basic</span>
+                        <div class="text-3xl font-black text-slate-900">6 <span class="text-sm font-normal text-slate-500">Mbps</span></div>
+                        <div class="text-xl font-extrabold text-red-600">Rs 2,200<span class="text-xs font-normal text-slate-500">/mo</span></div>
+                        <ul class="text-xs text-slate-600 space-y-2.5 pt-4 border-t border-slate-200">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Unlimited downloads</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> HD Video streaming</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> 3-4 Devices</li>
+                        </ul>
+                    </div>
+                    <a href="#signup" onclick="setPackage('6 Mbps - Rs 2,200/mo')" class="mt-8 w-full block text-center py-2.5 rounded-lg bg-slate-900 hover:bg-red-600 text-white font-bold text-xs transition-all">Choose Plan</a>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between transition-transform duration-300 hover:scale-105 hover:shadow-xl hover:border-red-300">
+                    <div class="space-y-4">
+                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Standard</span>
+                        <div class="text-3xl font-black text-slate-900">8 <span class="text-sm font-normal text-slate-500">Mbps</span></div>
+                        <div class="text-xl font-extrabold text-red-600">Rs 2,700<span class="text-xs font-normal text-slate-500">/mo</span></div>
+                        <ul class="text-xs text-slate-600 space-y-2.5 pt-4 border-t border-slate-200">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Unlimited downloads</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Multi-device streaming</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Low latency gaming</li>
+                        </ul>
+                    </div>
+                    <a href="#signup" onclick="setPackage('8 Mbps - Rs 2,700/mo')" class="mt-8 w-full block text-center py-2.5 rounded-lg bg-slate-900 hover:bg-red-600 text-white font-bold text-xs transition-all">Choose Plan</a>
+                </div>
+
+                <div class="bg-gradient-to-b from-red-900 to-red-950 text-white border-2 border-red-600 rounded-2xl p-6 flex flex-col justify-between relative shadow-2xl transition-transform duration-300 hover:scale-105 transform lg:-translate-y-2">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white font-extrabold text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                        Most Popular
+                    </div>
+                    <div class="space-y-4">
+                        <span class="text-[11px] font-bold text-red-300 uppercase tracking-wider">Family Pro</span>
+                        <div class="text-3xl font-black text-white">10 <span class="text-sm font-normal text-red-200">Mbps</span></div>
+                        <div class="text-2xl font-extrabold text-white">Rs 3,000<span class="text-xs font-normal text-red-200">/mo</span></div>
+                        <ul class="text-xs text-red-100 space-y-2.5 pt-4 border-t border-red-800">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-400 mr-2"></i> Unlimited downloads</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-400 mr-2"></i> Smooth 4K streaming</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-400 mr-2"></i> Work & Gaming</li>
+                        </ul>
+                    </div>
+                    <a href="#signup" onclick="setPackage('10 Mbps - Rs 3,000/mo')" class="mt-8 w-full block text-center py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition-all shadow-md">Choose Plan</a>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between transition-transform duration-300 hover:scale-105 hover:shadow-xl hover:border-red-300">
+                    <div class="space-y-4">
+                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Extreme</span>
+                        <div class="text-3xl font-black text-slate-900">20 <span class="text-sm font-normal text-slate-500">Mbps</span></div>
+                        <div class="text-xl font-extrabold text-red-600">Rs 4,500<span class="text-xs font-normal text-slate-500">/mo</span></div>
+                        <ul class="text-xs text-slate-600 space-y-2.5 pt-4 border-t border-slate-200">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Unlimited downloads</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Multiple TVs & Laptops</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2"></i> Heavy file transfers</li>
+                        </ul>
+                    </div>
+                    <a href="#signup" onclick="setPackage('20 Mbps - Rs 4,500/mo')" class="mt-8 w-full block text-center py-2.5 rounded-lg bg-slate-900 hover:bg-red-600 text-white font-bold text-xs transition-all">Choose Plan</a>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center text-xs text-slate-600 bg-slate-100 py-3 px-4 rounded-xl max-w-3xl mx-auto flex items-center justify-center space-x-2">
+                <i data-lucide="info" class="w-4 h-4 text-red-600 flex-shrink-0"></i>
+                <span>Installation charges start from <strong>Rs 8,000/-</strong> (subject to distance survey & line requirements). Equipment & optical fiber charges apply accordingly.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coverage Section -->
+    <section id="coverage" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative bg-gradient-to-r from-red-950 via-red-900 to-red-950 rounded-3xl p-8 sm:p-12 lg:p-14 text-white shadow-2xl border border-red-800/80 overflow-hidden transition-transform duration-300 hover:scale-[1.01]">
+                <div class="absolute inset-0 bg-grid-pattern opacity-15 pointer-events-none"></div>
+
+                <div class="relative z-10 grid lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7 space-y-8">
+                        <div class="space-y-3">
+                            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                                Coverage that's growing steadily
+                            </h2>
+                            <p class="text-red-200 text-xs sm:text-sm max-w-xl leading-relaxed font-light">
+                                We currently serve the areas below, with new zones added as our fiber and wireless network expands.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2.5 pt-2">
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">College Town (Pindi Road)</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Abdullah Colony</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Bahadur Colony</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Chikarkot</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Babri Banda</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Razgir Banda</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Bilitang</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Ghombat</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Kohat Cantt</span>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                        <div class="bg-red-900/40 border border-red-700/40 rounded-2xl p-5 backdrop-blur-sm space-y-1.5 flex flex-col justify-center transition-transform hover:scale-105 cursor-pointer">
+                            <div class="text-xl font-extrabold text-white tracking-wide">FTTH</div>
+                            <div class="text-[11px] text-red-200 leading-snug">True Fiber to the Home</div>
+                        </div>
+                        <div class="bg-red-900/40 border border-red-700/40 rounded-2xl p-5 backdrop-blur-sm space-y-1.5 flex flex-col justify-center transition-transform hover:scale-105 cursor-pointer">
+                            <div class="text-xl font-extrabold text-white tracking-wide">WLS</div>
+                            <div class="text-[11px] text-red-200 leading-snug">High-speed Wireless Connectivity</div>
+                        </div>
+                        <div class="bg-red-900/40 border border-red-700/40 rounded-2xl p-5 backdrop-blur-sm space-y-1.5 flex flex-col justify-center transition-transform hover:scale-105 cursor-pointer">
+                            <div class="text-2xl font-extrabold text-white tracking-wide">9+</div>
+                            <div class="text-[11px] text-red-200 leading-snug">Areas currently served</div>
+                        </div>
+                        <div class="bg-red-900/40 border border-red-700/40 rounded-2xl p-5 backdrop-blur-sm space-y-1.5 flex flex-col justify-center transition-transform hover:scale-105 cursor-pointer">
+                            <div class="text-2xl font-extrabold text-white tracking-wide">99.9%</div>
+                            <div class="text-[11px] text-red-200 leading-snug">Uptime target</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simplified Bill Payment Section -->
+    <section id="payment" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="bg-red-50 border border-red-200 rounded-2xl p-8 space-y-3 transition-transform duration-300 hover:scale-105 shadow-md">
+                <div class="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center mx-auto mb-2 transition-transform hover:rotate-12">
+                    <i data-lucide="credit-card" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Easy Bill Payment</h3>
+                <p class="text-slate-600 text-sm max-w-xl mx-auto">
+                    Pay your monthly Net-Cloud invoice conveniently anytime using <span class="font-bold text-red-600">Easypaisa</span> or any preferred <span class="font-bold text-red-600">Bank Application</span>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connection Booking Form (Updated with Matched Coverage Areas & Theme) -->
+    <section id="signup" class="py-20 bg-gradient-to-br from-red-950 via-red-900 to-slate-950 text-white relative border-t border-red-900">
+        <div class="absolute inset-0 bg-grid-pattern opacity-15 pointer-events-none"></div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-red-950/90 border border-red-800/80 rounded-3xl p-8 sm:p-10 shadow-2xl transition-transform duration-300 hover:scale-[1.01]">
+                <div class="text-center space-y-2 mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Order Your Net-Cloud Connection</h2>
+                    <p class="text-red-200 text-xs sm:text-sm">Place your order and it goes straight to the team that covers your area, by email and WhatsApp.</p>
+                </div>
+
+                <form onsubmit="sendWhatsAppOrder(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-red-200 mb-1">Your Full Name</label>
+                        <input type="text" id="custName" required placeholder="e.g. Muhammad Ali" class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-red-200 mb-1">Mobile / WhatsApp Number</label>
+                        <input type="tel" id="custPhone" required placeholder="0300 1234567" class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-red-200 mb-1">Kohat Area Location</label>
+                        <select id="custArea" required class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
+                            <option value="" class="bg-red-950 text-white">Select your location...</option>
+                            <option value="College Town (Pindi Road)" class="bg-red-950 text-white">College Town (Pindi Road)</option>
+                            <option value="Abdullah Colony" class="bg-red-950 text-white">Abdullah Colony</option>
+                            <option value="Bahadur Colony" class="bg-red-950 text-white">Bahadur Colony</option>
+                            <option value="Chikarkot" class="bg-red-950 text-white">Chikarkot</option>
+                            <option value="Babri Banda" class="bg-red-950 text-white">Babri Banda</option>
+                            <option value="Razgir Banda" class="bg-red-950 text-white">Razgir Banda</option>
+                            <option value="Bilitang" class="bg-red-950 text-white">Bilitang</option>
+                            <option value="Ghombat" class="bg-red-950 text-white">Ghombat</option>
+                            <option value="Kohat Cantt" class="bg-red-950 text-white">Kohat Cantt</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-red-200 mb-1">Required Internet Package</label>
+                        <select id="custPackage" required class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
+                            <option value="4 Mbps - Rs 1,800/mo" class="bg-red-950 text-white">4 Mbps - Rs 1,800/mo</option>
+                            <option value="6 Mbps - Rs 2,200/mo" class="bg-red-950 text-white">6 Mbps - Rs 2,200/mo</option>
+                            <option value="8 Mbps - Rs 2,700/mo" class="bg-red-950 text-white">8 Mbps - Rs 2,700/mo</option>
+                            <option value="10 Mbps - Rs 3,000/mo" selected class="bg-red-950 text-white">10 Mbps - Rs 3,000/mo (Recommended)</option>
+                            <option value="20 Mbps - Rs 4,500/mo" class="bg-red-950 text-white">20 Mbps - Rs 4,500/mo</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-xl shadow-red-600/30 transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2 mt-6">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Order Now</span>
+                    </button>
+                    <p id="orderStatus" class="text-center text-xs text-red-200 min-h-[1rem]"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:flex sm:justify-between sm:items-center space-y-4 sm:space-y-0">
+            <div class="hover:text-white transition-colors cursor-pointer">
+                <span class="text-white font-bold">Net-Cloud Telecom Kohat</span> — Fiber and Wireless Internet
+            </div>
+            <div class="hover:text-white transition-colors cursor-pointer">
+                © 2026 Net-Cloud Telecom Private Limited. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for Network Animation and Lucide Icons -->
+    <script>
+        lucide.createIcons();
+
+        function setPackage(pkgValue) {
+            document.getElementById('custPackage').value = pkgValue;
+        }
+
+        // ---- Order routing: who receives the order for each area ----
+        const ROUTES = {
+            sohail: { email: "sohailmuhammad886@gmail.com", whatsapp: "923366294634" },
+            salman: { email: "salmanyaar73@gmail.com",      whatsapp: "923274894095" }
+        };
+        const AREA_ROUTE = {
+            "College Town (Pindi Road)": "sohail",
+            "Babri Banda": "salman",
+            "Razgir Banda": "salman"
+        };
+        // Areas not listed above go here. Change to "salman" or add them to AREA_ROUTE if needed.
+        const DEFAULT_ROUTE = "sohail";
+
+        function sendWhatsAppOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const area = document.getElementById('custArea').value;
+            const pkg = document.getElementById('custPackage').value;
+            const status = document.getElementById('orderStatus');
+
+            const route = ROUTES[AREA_ROUTE[area] || DEFAULT_ROUTE];
+
+            const text =
+                "Hello Net-Cloud Telecom Kohat,\n\n" +
+                "*New Connection Order*\n" +
+                "- *Name:* " + name + "\n" +
+                "- *Phone:* " + phone + "\n" +
+                "- *Location:* " + area + "\n" +
+                "- *Package:* " + pkg;
+
+            // 1) Open WhatsApp first (must happen directly from the click so browsers don't block it)
+            window.open("https://wa.me/" + route.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
+
+            // 2) Email the same order to the area's owner only
+            fetch("https://formsubmit.co/ajax/" + route.email, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                body: JSON.stringify({
+                    _subject: "New Net-Cloud Order - " + area,
+                    _captcha: "false",
+                    _template: "table",
+                    Name: name,
+                    Phone: phone,
+                    Location: area,
+                    Package: pkg
+                }),
+                keepalive: true
+            })
+            .then(function (r) { return r.json(); })
+            .then(function () { status.textContent = "Order sent. Our team will contact you shortly."; })
+            .catch(function () { status.textContent = "WhatsApp opened. Email could not be sent, please send the WhatsApp message."; });
+        }
+
+        // Network Topology Animation
+        const baseNodes = [
+            { id: 'n1', x: 40, y: 110, freqX: 1.2, freqY: 1.5, ampX: 4, ampY: 5 },
+            { id: 'n2', x: 90, y: 75,  freqX: 1.8, freqY: 1.2, ampX: 6, ampY: 4 },
+            { id: 'n3', x: 140, y: 110, freqX: 1.4, freqY: 1.9, ampX: 5, ampY: 6 },
+            { id: 'n4', x: 160, y: 45,  freqX: 1.0, freqY: 1.1, ampX: 7, ampY: 7 },
+            { id: 'n5', x: 210, y: 85,  freqX: 1.6, freqY: 1.4, ampX: 5, ampY: 5 },
+            { id: 'n6', x: 270, y: 40,  freqX: 1.3, freqY: 1.7, ampX: 6, ampY: 4 },
+            { id: 'n7', x: 290, y: 105, freqX: 1.9, freqY: 1.3, ampX: 4, ampY: 6 }
+        ];
+
+        const connections = [
+            ['l1', 'n1', 'n2'],
+            ['l2', 'n2', 'n3'],
+            ['l3', 'n2', 'n4'],
+            ['l4', 'n4', 'n5'],
+            ['l5', 'n3', 'n5'],
+            ['l6', 'n5', 'n6'],
+            ['l7', 'n6', 'n7'],
+            ['l8', 'n5', 'n7']
+        ];
+
+        const packetsContainer = document.getElementById('net-packets');
+        const packetObjects = [];
+
+        connections.forEach(([lineId, fromId, toId], idx) => {
+            const fwdId = `pkt_${lineId}_fwd`;
+            const fwdCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            fwdCircle.setAttribute("id", fwdId);
+            fwdCircle.setAttribute("r", "3");
+            fwdCircle.setAttribute("fill", "#FFFFFF");
+            packetsContainer.appendChild(fwdCircle);
+            packetObjects.push({ elId: fwdId, from: fromId, to: toId, speed: 0.0007 + (idx % 3) * 0.0002, offset: idx * 0.3, reverse: false });
+
+            const revId = `pkt_${lineId}_rev`;
+            const revCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            revCircle.setAttribute("id", revId);
+            revCircle.setAttribute("r", "2.5");
+            revCircle.setAttribute("fill", "#FCA5A5");
+            packetsContainer.appendChild(revCircle);
+            packetObjects.push({ elId: revId, from: fromId, to: toId, speed: 0.0008 + (idx % 2) * 0.0003, offset: idx * 0.5 + 0.5, reverse: true });
+        });
+
+        let startTime = performance.now();
+
+        function animateNetwork(now) {
+            let t = (now - startTime) * 0.001;
+            const currentPositions = {};
+
+            baseNodes.forEach((node, index) => {
+                let currX = node.x + Math.sin(t * node.freqX + index) * node.ampX;
+                let currY = node.y + Math.cos(t * node.freqY + index * 0.7) * node.ampY;
+                currentPositions[node.id] = { x: currX, y: currY };
+
+                const el = document.getElementById(node.id);
+                if (el) {
+                    el.setAttribute('cx', currX);
+                    el.setAttribute('cy', currY);
+                }
+            });
+
+            connections.forEach(([lineId, fromId, toId]) => {
+                const lineEl = document.getElementById(lineId);
+                const pFrom = currentPositions[fromId];
+                const pTo = currentPositions[toId];
+                if (lineEl && pFrom && pTo) {
+                    lineEl.setAttribute('x1', pFrom.x);
+                    lineEl.setAttribute('y1', pFrom.y);
+                    lineEl.setAttribute('x2', pTo.x);
+                    lineEl.setAttribute('y2', pTo.y);
+                }
+            });
+
+            packetObjects.forEach((pkt) => {
+                let rawProgress = (t * 0.5 * pkt.speed * 1000 + pkt.offset) % 1.0;
+                let progress = Math.abs(2 * (rawProgress - 0.5));
+
+                if (pkt.reverse) {
+                    progress = 1.0 - progress;
+                }
+
+                const pFrom = currentPositions[pkt.from];
+                const pTo = currentPositions[pkt.to];
+
+                if (pFrom && pTo) {
+                    let pktX = pFrom.x + (pTo.x - pFrom.x) * progress;
+                    let pktY = pFrom.y + (pTo.y - pFrom.y) * progress;
+
+                    const pktEl = document.getElementById(pkt.elId);
+                    if (pktEl) {
+                        pktEl.setAttribute('cx', pktX);
+                        pktEl.setAttribute('cy', pktY);
+                    }
+                }
+            });
+
+            requestAnimationFrame(animateNetwork);
+        }
+
+        requestAnimationFrame(animateNetwork);
+    </script>
+</body>
+</html>
