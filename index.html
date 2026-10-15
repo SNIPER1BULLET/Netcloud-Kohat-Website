@@ -487,7 +487,7 @@
 
             <div class="mt-8 text-center text-xs text-slate-600 bg-slate-100 py-3 px-4 rounded-xl max-w-3xl mx-auto flex items-center justify-center space-x-2">
                 <i data-lucide="info" class="w-4 h-4 text-red-600 flex-shrink-0"></i>
-                <span>Installation charges start from <strong>Rs 8,000/-</strong> (subject to distance survey & line requirements). Equipment & optical fiber charges apply accordingly.</span>
+                <span>Installation charges start from <strong>Rs 8,000/-</strong> and are <strong>non-refundable</strong>. Charges vary by <strong>location</strong>, so the final amount depends on your area, distance survey &amp; line requirements. Equipment &amp; optical fiber charges apply accordingly.</span>
             </div>
         </div>
     </section>
@@ -510,7 +510,7 @@
                         </div>
 
                         <div class="flex flex-wrap gap-2.5 pt-2">
-                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">College Town (Pindi Road)</span>
+                            <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">College Town</span>
                             <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Abdullah Colony</span>
                             <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Bahadur Colony</span>
                             <span class="bg-red-900/60 border border-red-700/60 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:scale-110 transition-transform cursor-pointer">Chikarkot</span>
@@ -585,7 +585,7 @@
                         <label class="block text-xs font-semibold text-red-200 mb-1">Kohat Area Location</label>
                         <select id="custArea" required class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
                             <option value="" class="bg-red-950 text-white">Select your location...</option>
-                            <option value="College Town (Pindi Road)" class="bg-red-950 text-white">College Town (Pindi Road)</option>
+                            <option value="College Town" class="bg-red-950 text-white">College Town</option>
                             <option value="Abdullah Colony" class="bg-red-950 text-white">Abdullah Colony</option>
                             <option value="Bahadur Colony" class="bg-red-950 text-white">Bahadur Colony</option>
                             <option value="Chikarkot" class="bg-red-950 text-white">Chikarkot</option>
@@ -595,6 +595,21 @@
                             <option value="Ghombat" class="bg-red-950 text-white">Ghombat</option>
                             <option value="Kohat Cantt" class="bg-red-950 text-white">Kohat Cantt</option>
                         </select>
+                    </div>
+
+                    <!-- Optional pinpoint location -->
+                    <div class="p-4 rounded-xl border border-red-800/80 bg-red-950/40">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div>
+                                <div class="text-xs font-semibold text-red-200">Pinpoint location <span class="font-normal text-red-300">- optional</span></div>
+                                <p class="text-[11px] text-red-300 mt-0.5 leading-relaxed">Share your exact spot so our team can find your address easily.</p>
+                            </div>
+                            <button type="button" id="pinBtn" onclick="getPinLocation()" class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                <span id="pinBtnText">Share my location</span>
+                            </button>
+                        </div>
+                        <p id="pinStatus" class="text-[11px] mt-2 text-red-200 min-h-[1rem]"></p>
                     </div>
 
                     <div>
@@ -672,12 +687,41 @@
             salman: { email: "salmanyaar73@gmail.com",      whatsapp: "923274894095" }
         };
         const AREA_ROUTE = {
-            "College Town (Pindi Road)": "sohail",
+            "College Town": "sohail",
             "Babri Banda": "salman",
             "Razgir Banda": "salman"
         };
         // Areas not listed above go here. Change to "salman" or add them to AREA_ROUTE if needed.
         const DEFAULT_ROUTE = "sohail";
+
+        // ---- Optional pinpoint location ----
+        let pinLocation = null;
+
+        function getPinLocation() {
+            const status = document.getElementById('pinStatus');
+            const btnText = document.getElementById('pinBtnText');
+            if (!navigator.geolocation) {
+                status.textContent = "Your browser can't share location. You can still place the order.";
+                return;
+            }
+            btnText.textContent = "Locating...";
+            status.textContent = "";
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                pinLocation = {
+                    lat: pos.coords.latitude.toFixed(6),
+                    lng: pos.coords.longitude.toFixed(6),
+                    acc: Math.round(pos.coords.accuracy)
+                };
+                btnText.textContent = "Update location";
+                status.textContent = "Location added (accurate to about " + pinLocation.acc + " m). It will be sent with your order.";
+            }, function (err) {
+                pinLocation = null;
+                btnText.textContent = "Share my location";
+                status.textContent = err && err.code === 1
+                    ? "Location permission was blocked. Allow it in your browser settings, or place the order without it."
+                    : "Couldn't get your location. You can still place the order without it.";
+            }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+        }
 
         function sendWhatsAppOrder(e) {
             e.preventDefault();
@@ -691,16 +735,21 @@
                 pkg = "Custom Package - Download: " + down + " Mbps, Upload: " + (up ? up + " Mbps" : "not specified") + " (price to be confirmed)";
             }
             const status = document.getElementById('orderStatus');
-
             const route = ROUTES[AREA_ROUTE[area] || DEFAULT_ROUTE];
 
+            const mapLink = pinLocation ? "https://www.google.com/maps?q=" + pinLocation.lat + "," + pinLocation.lng : "";
+            const orderTime = new Date().toLocaleString("en-GB", { timeZone: "Asia/Karachi", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true });
+
             const text =
-                "Hello Net-Cloud Telecom Kohat,\n\n" +
-                "*New Connection Order*\n" +
-                "- *Name:* " + name + "\n" +
-                "- *Phone:* " + phone + "\n" +
-                "- *Location:* " + area + "\n" +
-                "- *Package:* " + pkg;
+                "*NEW CONNECTION ORDER*\n" +
+                "Net-Cloud Telecom Kohat\n" +
+                "-----------------------\n" +
+                "*Customer:* " + name + "\n" +
+                "*Mobile:* " + phone + "\n" +
+                "*Area:* " + area + "\n" +
+                "*Package:* " + pkg + "\n" +
+                "*Pinpoint:* " + (mapLink ? mapLink : "Not shared") + "\n" +
+                "*Received:* " + orderTime;
 
             // 1) Open WhatsApp first (must happen directly from the click so browsers don't block it)
             window.open("https://wa.me/" + route.whatsapp + "?text=" + encodeURIComponent(text), "_blank");
@@ -710,13 +759,15 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Accept": "application/json" },
                 body: JSON.stringify({
-                    _subject: "New Net-Cloud Order - " + area,
+                    _subject: "New Order | " + area + " | " + name,
                     _captcha: "false",
-                    _template: "table",
-                    Name: name,
-                    Phone: phone,
-                    Location: area,
-                    Package: pkg
+                    _template: "box",
+                    "Customer Name": name,
+                    "Mobile / WhatsApp": phone,
+                    "Area": area,
+                    "Package": pkg,
+                    "Pinpoint Location": mapLink ? mapLink + " (accuracy about " + pinLocation.acc + " m)" : "Not shared",
+                    "Order Received": orderTime + " (Pakistan time)"
                 }),
                 keepalive: true
             })
