@@ -79,13 +79,15 @@
         .nc-wave.w3 { animation-delay: .7s; }
         @keyframes ncWave { 0%, 100% { opacity: .15; } 50% { opacity: .9; } }
         /* Pinpoint location prompts */
-        .pin-alert { border-color: #FCA5A5 !important; background: rgba(220, 38, 38, .25) !important; animation: pinShake .5s ease-in-out; box-shadow: 0 0 0 3px rgba(248, 113, 113, .45); }
+        .pin-alert { border-color: #FCA5A5 !important; box-shadow: 0 0 0 3px rgba(248, 113, 113, .35); }
         .pin-ok { border-color: rgba(52, 211, 153, .6) !important; background: rgba(16, 185, 129, .10) !important; }
         .pin-pulse { animation: pinPulse 1.4s ease-out infinite; }
-        @keyframes pinShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+        .pin-hint { position: relative; margin-top: 12px; background: #FFFFFF; color: #991B1B; animation: pinBob 1.3s ease-in-out infinite; }
+        .pin-hint::before { content: ""; position: absolute; top: -6px; left: 50%; margin-left: -6px; border: 6px solid transparent; border-top: 0; border-bottom-color: #FFFFFF; }
+        @keyframes pinBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         @keyframes pinPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .7); } 100% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); } }
         @media (prefers-reduced-motion: reduce) {
-            .pin-alert, .pin-pulse { animation: none; }
+            .pin-pulse, .pin-hint { animation: none; }
             .nc-flow, .nc-flow-wl, .nc-ring, .nc-wave, .why-card:hover .icon-box::after, .why-card:hover .icon-box svg { animation: none; }
         }
     </style>
@@ -605,18 +607,21 @@
                     </div>
 
                     <!-- Pinpoint location (required, shown once an area is selected) -->
-                    <div id="pinBox" class="hidden p-4 rounded-xl border border-red-800/80 bg-red-950/40">
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div id="pinBox" class="hidden p-4 rounded-xl border border-red-800/80 bg-red-950/40 transition-colors">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                             <div>
-                                <div class="text-xs font-semibold text-red-200">Pinpoint your house location <span class="text-red-400">*</span></div>
-                                <p class="text-[11px] text-red-200 mt-0.5 leading-relaxed"><strong class="text-white">Please be at your home right now.</strong> Share the exact location of the house where you want the connection installed. Don't order from another place, because we use this pin to find your address and check coverage.</p>
+                                <div class="text-sm font-semibold text-white">Pinpoint your house location <span class="text-red-400">*</span></div>
+                                <p class="text-xs text-red-200 mt-1 leading-relaxed">Please share it from your home, where the connection will be installed.</p>
                             </div>
-                            <button type="button" id="pinBtn" onclick="getPinLocation()" class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all">
-                                <i data-lucide="map-pin" class="w-4 h-4"></i>
-                                <span id="pinBtnText">Share my house location</span>
-                            </button>
+                            <div class="flex flex-col items-center self-start sm:self-auto flex-shrink-0">
+                                <button type="button" id="pinBtn" onclick="getPinLocation()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all">
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                    <span id="pinBtnText">Share my house location</span>
+                                </button>
+                                <div id="pinHint" role="alert" class="pin-hint hidden w-max max-w-full rounded-lg px-3 py-2 text-xs font-semibold shadow-lg">Tap here to share your location</div>
+                            </div>
                         </div>
-                        <p id="pinStatus" role="status" class="text-xs mt-3 text-red-200 min-h-[1rem] leading-relaxed"></p>
+                        <p id="pinStatus" role="status" class="text-xs mt-3 text-red-200 min-h-[1rem]"></p>
                     </div>
 
                     <div>
@@ -714,13 +719,14 @@
             const status = document.getElementById('pinStatus');
             const btnText = document.getElementById('pinBtnText');
             if (!navigator.geolocation) {
-                status.textContent = "Your browser can't share location. Please try another browser or device.";
+                status.textContent = "Location sharing isn't supported on this browser.";
                 return;
             }
             const box = document.getElementById('pinBox');
             btnText.textContent = "Locating...";
             status.textContent = "";
             box.classList.remove('pin-alert');
+            document.getElementById('pinHint').classList.add('hidden');
             navigator.geolocation.getCurrentPosition(function (pos) {
                 pinLocation = {
                     lat: pos.coords.latitude.toFixed(6),
@@ -731,15 +737,15 @@
                 box.classList.add('pin-ok');
                 document.getElementById('pinBtn').classList.remove('pin-pulse');
                 document.getElementById('orderStatus').textContent = "";
-                status.textContent = "Done. Your house location is added (accurate to about " + pinLocation.acc + " m). Please make sure you are at home.";
+                status.textContent = "Location added. Thank you.";
             }, function (err) {
                 pinLocation = null;
                 box.classList.remove('pin-ok');
                 document.getElementById('pinBtn').classList.add('pin-pulse');
                 btnText.textContent = "Share my house location";
                 status.textContent = err && err.code === 1
-                    ? "Location permission was blocked. Please allow location access in your browser settings and tap the button again."
-                    : "Couldn't get your location. Please check that location is turned on and try again.";
+                    ? "Location access is blocked. Please allow it in your browser settings and try again."
+                    : "We couldn't get your location. Please check your settings and try again.";
             }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
         }
 
@@ -760,11 +766,10 @@
             if (!pinLocation) {
                 const box = document.getElementById('pinBox');
                 const btn = document.getElementById('pinBtn');
-                document.getElementById('pinStatus').textContent = "⚠ Your order was not sent. Please tap “Share my house location” first, while you are at home.";
-                status.textContent = "Order not sent: share your house location above first (red box with the button).";
-                box.classList.remove('pin-alert');
-                void box.offsetWidth;            // restart the shake animation on repeat clicks
+                document.getElementById('pinStatus').textContent = "Your house location is required to place the order.";
+                status.textContent = "";
                 box.classList.add('pin-alert');
+                document.getElementById('pinHint').classList.remove('hidden');
                 btn.classList.add('pin-pulse');
                 box.scrollIntoView({ behavior: "smooth", block: "center" });
                 setTimeout(function () { btn.focus({ preventScroll: true }); }, 450);
