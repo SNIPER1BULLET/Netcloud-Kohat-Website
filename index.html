@@ -583,7 +583,7 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-red-200 mb-1">Kohat Area Location</label>
-                        <select id="custArea" required class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
+                        <select id="custArea" required onchange="onAreaChange()" class="w-full bg-red-950/60 border border-red-800/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400 transition-all hover:border-red-500">
                             <option value="" class="bg-red-950 text-white">Select your location...</option>
                             <option value="College Town" class="bg-red-950 text-white">College Town</option>
                             <option value="Abdullah Colony" class="bg-red-950 text-white">Abdullah Colony</option>
@@ -597,12 +597,12 @@
                         </select>
                     </div>
 
-                    <!-- Optional pinpoint location -->
-                    <div class="p-4 rounded-xl border border-red-800/80 bg-red-950/40">
+                    <!-- Pinpoint location (required, shown once an area is selected) -->
+                    <div id="pinBox" class="hidden p-4 rounded-xl border border-red-800/80 bg-red-950/40">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                             <div>
-                                <div class="text-xs font-semibold text-red-200">Pinpoint location <span class="font-normal text-red-300">- optional</span></div>
-                                <p class="text-[11px] text-red-300 mt-0.5 leading-relaxed">Share your exact spot so our team can find your address easily.</p>
+                                <div class="text-xs font-semibold text-red-200">Pinpoint location <span class="text-red-400">*</span></div>
+                                <p class="text-[11px] text-red-300 mt-0.5 leading-relaxed">Please share your exact location so our team can find your address and confirm coverage.</p>
                             </div>
                             <button type="button" id="pinBtn" onclick="getPinLocation()" class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all">
                                 <i data-lucide="map-pin" class="w-4 h-4"></i>
@@ -694,14 +694,19 @@
         // Areas not listed above go here. Change to "salman" or add them to AREA_ROUTE if needed.
         const DEFAULT_ROUTE = "sohail";
 
-        // ---- Optional pinpoint location ----
+        // ---- Pinpoint location (required) ----
         let pinLocation = null;
+
+        function onAreaChange() {
+            const hasArea = document.getElementById('custArea').value !== "";
+            document.getElementById('pinBox').classList.toggle('hidden', !hasArea);
+        }
 
         function getPinLocation() {
             const status = document.getElementById('pinStatus');
             const btnText = document.getElementById('pinBtnText');
             if (!navigator.geolocation) {
-                status.textContent = "Your browser can't share location. You can still place the order.";
+                status.textContent = "Your browser can't share location. Please try another browser or device.";
                 return;
             }
             btnText.textContent = "Locating...";
@@ -718,8 +723,8 @@
                 pinLocation = null;
                 btnText.textContent = "Share my location";
                 status.textContent = err && err.code === 1
-                    ? "Location permission was blocked. Allow it in your browser settings, or place the order without it."
-                    : "Couldn't get your location. You can still place the order without it.";
+                    ? "Location permission was blocked. Please allow location access in your browser settings and tap the button again."
+                    : "Couldn't get your location. Please check that location is turned on and try again.";
             }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
         }
 
@@ -737,7 +742,12 @@
             const status = document.getElementById('orderStatus');
             const route = ROUTES[AREA_ROUTE[area] || DEFAULT_ROUTE];
 
-            const mapLink = pinLocation ? "https://www.google.com/maps?q=" + pinLocation.lat + "," + pinLocation.lng : "";
+            if (!pinLocation) {
+                document.getElementById('pinStatus').textContent = "Please share your pinpoint location before ordering.";
+                document.getElementById('pinBox').scrollIntoView({ behavior: "smooth", block: "center" });
+                return;
+            }
+            const mapLink = "https://www.google.com/maps?q=" + pinLocation.lat + "," + pinLocation.lng;
             const orderTime = new Date().toLocaleString("en-GB", { timeZone: "Asia/Karachi", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true });
 
             const text =
@@ -748,7 +758,7 @@
                 "*Mobile:* " + phone + "\n" +
                 "*Area:* " + area + "\n" +
                 "*Package:* " + pkg + "\n" +
-                "*Pinpoint:* " + (mapLink ? mapLink : "Not shared") + "\n" +
+                "*Pinpoint:* " + mapLink + "\n" +
                 "*Received:* " + orderTime;
 
             // 1) Open WhatsApp first (must happen directly from the click so browsers don't block it)
@@ -766,7 +776,7 @@
                     "Mobile / WhatsApp": phone,
                     "Area": area,
                     "Package": pkg,
-                    "Pinpoint Location": mapLink ? mapLink + " (accuracy about " + pinLocation.acc + " m)" : "Not shared",
+                    "Pinpoint Location": mapLink + " (accuracy about " + pinLocation.acc + " m)",
                     "Order Received": orderTime + " (Pakistan time)"
                 }),
                 keepalive: true
