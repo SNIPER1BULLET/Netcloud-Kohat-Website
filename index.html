@@ -622,6 +622,10 @@
                             </div>
                         </div>
                         <p id="pinStatus" role="status" class="text-xs mt-3 text-red-200 min-h-[1rem]"></p>
+                        <div id="pinMapWrap" class="hidden mt-3">
+                            <iframe id="pinMap" title="Your pinned location on the map" loading="lazy" referrerpolicy="no-referrer" class="w-full h-40 rounded-lg border border-red-800/80 bg-red-950"></iframe>
+                            <p class="text-[11px] text-red-300 mt-1.5">If the pin is not at your house, tap “Update house location”.</p>
+                        </div>
                     </div>
 
                     <div>
@@ -715,38 +719,77 @@
             document.getElementById('pinBtn').classList.toggle('pin-pulse', hasArea && !pinLocation);
         }
 
+        // Only accept a location accurate to within this many metres. Rough Wi-Fi / network
+        // locations (common on computers) can be kilometres off, so they are rejected.
+        const PIN_MAX_ACCURACY = 100;   // reject worse than this
+        const PIN_GOOD_ACCURACY = 25;   // stop waiting as soon as we get this good
+        const PIN_WAIT_MS = 20000;      // how long we keep trying to improve the fix
+        let pinWatchId = null;
+
         function getPinLocation() {
             const status = document.getElementById('pinStatus');
+            const btn = document.getElementById('pinBtn');
             const btnText = document.getElementById('pinBtnText');
+            const box = document.getElementById('pinBox');
             if (!navigator.geolocation) {
                 status.textContent = "Location sharing isn't supported on this browser.";
                 return;
             }
-            const box = document.getElementById('pinBox');
-            btnText.textContent = "Locating...";
-            status.textContent = "";
+            if (pinWatchId !== null) return;   // already working on it
+
+            let best = null, lastErr = null, timer = null;
             box.classList.remove('pin-alert');
             document.getElementById('pinHint').classList.add('hidden');
-            navigator.geolocation.getCurrentPosition(function (pos) {
-                pinLocation = {
-                    lat: pos.coords.latitude.toFixed(6),
-                    lng: pos.coords.longitude.toFixed(6),
-                    acc: Math.round(pos.coords.accuracy)
-                };
-                btnText.textContent = "Update house location";
-                box.classList.add('pin-ok');
-                document.getElementById('pinBtn').classList.remove('pin-pulse');
-                document.getElementById('orderStatus').textContent = "";
-                status.textContent = "Location added. Thank you.";
+            btn.disabled = true;
+            btn.classList.add('opacity-70');
+            btnText.textContent = "Getting your location...";
+            status.textContent = "Finding an accurate location. This can take up to 20 seconds.";
+
+            function finish() {
+                navigator.geolocation.clearWatch(pinWatchId);
+                pinWatchId = null;
+                clearTimeout(timer);
+                btn.disabled = false;
+                btn.classList.remove('opacity-70');
+
+                if (best && best.acc <= PIN_MAX_ACCURACY) {
+                    pinLocation = best;
+                    btnText.textContent = "Update house location";
+                    box.classList.add('pin-ok');
+                    btn.classList.remove('pin-pulse');
+                    document.getElementById('orderStatus').textContent = "";
+                    status.textContent = "Location added (accurate to about " + best.acc + " m).";
+                    document.getElementById('pinMap').src = "https://maps.google.com/maps?q=" + best.lat + "," + best.lng + "&z=18&output=embed";
+                    document.getElementById('pinMapWrap').classList.remove('hidden');
+                    return;
+                }
+                // Not good enough (or failed). Keep an earlier good pin if there is one.
+                btnText.textContent = pinLocation ? "Update house location" : "Share my house location";
+                if (!pinLocation) {
+                    box.classList.remove('pin-ok');
+                    btn.classList.add('pin-pulse');
+                }
+                if (lastErr && lastErr.code === 1) {
+                    status.textContent = "Location access is blocked. Please allow it in your browser settings and try again.";
+                } else if (best) {
+                    status.textContent = "Your location isn't accurate enough (about " + best.acc + " m off). Please use your phone, turn on GPS / precise location, and try again near a window or outdoors.";
+                } else {
+                    status.textContent = "We couldn't get your location. Please check your settings and try again.";
+                }
+            }
+
+            pinWatchId = navigator.geolocation.watchPosition(function (pos) {
+                const acc = Math.round(pos.coords.accuracy);
+                if (!best || acc < best.acc) {
+                    best = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6), acc: acc };
+                }
+                status.textContent = "Improving accuracy... currently about " + best.acc + " m.";
+                if (best.acc <= PIN_GOOD_ACCURACY) finish();
             }, function (err) {
-                pinLocation = null;
-                box.classList.remove('pin-ok');
-                document.getElementById('pinBtn').classList.add('pin-pulse');
-                btnText.textContent = "Share my house location";
-                status.textContent = err && err.code === 1
-                    ? "Location access is blocked. Please allow it in your browser settings and try again."
-                    : "We couldn't get your location. Please check your settings and try again.";
-            }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+                lastErr = err;
+                if (err && err.code === 1) finish();   // permission denied: stop right away
+            }, { enableHighAccuracy: true, timeout: PIN_WAIT_MS, maximumAge: 0 });
+            timer = setTimeout(finish, PIN_WAIT_MS);
         }
 
         function sendWhatsAppOrder(e) {
@@ -786,7 +829,7 @@
                 "*Mobile:* " + phone + "\n" +
                 "*Area:* " + area + "\n" +
                 "*Package:* " + pkg + "\n" +
-                "*Pinpoint:* " + mapLink + "\n" +
+                "*Pinpoint:* " + mapLink + " (accuracy ~" + pinLocation.acc + " m)\n" +
                 "*Received:* " + orderTime;
 
             // 1) Open WhatsApp first (must happen directly from the click so browsers don't block it)
